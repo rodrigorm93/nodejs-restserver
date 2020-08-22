@@ -3,6 +3,7 @@
 require("./config/config");
 
 const express = require("express");
+const mongoose = require("mongoose"); //libreria de la base de datos
 const app = express();
 const bodyParser = require("body-parser");
 
@@ -12,30 +13,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-//put: para actualizar data
-//post: para crear nuevos registros
+app.use(require("./routes/usuario")); // para poder usar las rutas que estan en usuario
 
-app.get("/usuario", function (req, res) {
-  //res.send("Hello World");
-  //se trabajara enviando informacion en formato JSON
-  res.json("get usuario");
-});
+//conexion de la base de datos
 
-app.post("/usuario", function (req, res) {
-  let body = req.body; //es el que va aparecer cuando bodyParser pase por la peticiones
-  res.json(body);
-});
-
-app.put("/usuario/:id", function (req, res) {
-  let id = req.params.id;
-  res.json({
-    id,
+const connectDB = async () => {
+  await mongoose.connect(process.env.URLDB, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
   });
-});
 
-app.delete("/usuario", function (req, res) {
-  res.json("delete usuario");
-});
+  console.log("DB is connect");
+};
+
+connectDB();
 
 app.listen(process.env.PORT, () => {
   console.log("Escuchando en el puero", process.env.PORT);
