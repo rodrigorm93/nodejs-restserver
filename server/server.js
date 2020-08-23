@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use(require("./routes/usuario")); // para poder usar las rutas que estan en usuario
+//configuracion fglobal de rutas
+app.use(require("./routes/index.js")); // para llamar al index.js que tiene todoas las rutas
 
 //conexion de la base de datos
 

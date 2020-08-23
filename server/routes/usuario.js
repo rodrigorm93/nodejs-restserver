@@ -5,11 +5,17 @@ const bcrypt = require("bcrypt");
 const _ = require("underscore");
 
 const Usuario = require("../model/usuario");
-const { response } = require("express");
+
+const {
+  verificaToken,
+  verificaAdmin_Role,
+} = require("../middlewares/autenticacion");
 
 //put: para actualizar data
 //post: para crear nuevos registros
-app.get("/usuario", function (req, res) {
+
+// el segundo argumento de seria el middlewere
+app.get("/usuario", verificaToken, (req, res) => {
   let desde = req.query.desde || 0; //para decirle desde que pagina empezar a mostrar los datos
 
   desde = Number(desde);
@@ -42,7 +48,7 @@ app.get("/usuario", function (req, res) {
     });
 });
 
-app.post("/usuario", function (req, res) {
+app.post("/usuario", [verificaToken, verificaAdmin_Role], function (req, res) {
   let body = req.body; //es el que va aparecer cuando bodyParser pase por la peticiones
 
   //creamos un nuevo objeto de tipo usuario
@@ -72,7 +78,10 @@ app.post("/usuario", function (req, res) {
   });
 });
 
-app.put("/usuario/:id", function (req, res) {
+app.put("/usuario/:id", [verificaToken, verificaAdmin_Role], function (
+  req,
+  res
+) {
   let id = req.params.id;
   let body = _.pick(req.body, ["nombre", "email", "img", "role", "estado"]); //le diremos que campos se podran actualizar con: underscore . utilizaremos pick
 
@@ -107,7 +116,10 @@ app.put("/usuario/:id", function (req, res) {
 
 //metodo para eliminar
 
-app.delete("/usuario/:id", function (req, res) {
+app.delete("/usuario/:id", [verificaToken, verificaAdmin_Role], function (
+  req,
+  res
+) {
   let id = req.params.id;
 
   let cambiaEstado = {
