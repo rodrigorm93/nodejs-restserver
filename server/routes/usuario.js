@@ -88,7 +88,7 @@ app.put("/usuario/:id", [verificaToken, verificaAdmin_Role], function (
   //realizamos la actualizacion.
   //buscaremso el id y lo actualizaremos
   //le pasamos el id, el body, recive un error y el usuario de la base de datos
-  // runValidators: true : para activar las validaciones que tenmos configuradas en el modelo por ejemplo en que no puede
+  // runValidators: true : para activar las validaciones que tenemos configuradas en el modelo por ejemplo en que no puede
   //cambiar el rol dsitinto a los definidos en el modelo
 
   //para manejar mejor las validaciones y evistar que el usuario actualice campos que no esten permitidos vamos a utilizar

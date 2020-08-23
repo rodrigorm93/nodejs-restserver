@@ -8,9 +8,8 @@ process.env.PORT = process.env.PORT || 3000;
 process.env.NODE_ENV = process.env.NODE_ENV || "dev";
 
 //fecha de vencimiento
-// 60 segundo, 60 minutos, 24 horas, 30 dias
 
-process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+process.env.CADUCIDAD_TOKEN = "48h";
 
 //seed
 //voy a declarar una variable en heroku que sera el seed de nuestra aplicacion
@@ -23,7 +22,7 @@ let urlDB;
 if (process.env.NODE_ENV === "dev") {
   urlDB = "mongodb://localhost/cafe";
 } else {
-  urlDB = process.env.MONGO_URI;
+  urlDB = process.env.MONGO_URI; // MongoUri es una variable de entorno de heroku ahi iria : mongodb+srv://hathcock:LLRlcTXfwo4MkUx6@cluster0.vzclc.mongodb.net/cafe
 }
 
 process.env.URLDB = urlDB;
