@@ -27,3 +27,8 @@ if (process.env.NODE_ENV === "dev") {
 }
 
 process.env.URLDB = urlDB;
+
+//GOOGLE CLIENT ID: sacado de la consola de credenciales
+process.env.CLIENT_ID =
+  process.env.CLIENT_ID ||
+  "669370876013-j1c3oo9i1m3gm2u5rq2grd2c8737a9ll.apps.googleusercontent.com";
